@@ -38,26 +38,26 @@ function EndlessSpace(){
 	self.moveGameObjects = function () {
 		for(var i = 0;i < self.gameObjects.length;i++){
 			var gameObject = self.gameObjects[i];
-			if(gameObject.gameObject.type == GameObject.Type.SpaceShip){
-				if(self.keybinder.actionsTriggered[self.config.moveLeft[0]] == true
-					||self.keybinder.actionsTriggered[self.config.moveLeft[1]] == true){
-					self.spaceship.gameObject.move(new Vector2D(-1,0));
+			if (GameObject.Type.SpaceShip == gameObject.gameObject.getType()) {
+				if (self.keybinder.actionsTriggered[self.config.moveLeft[0]] == true
+					|| self.keybinder.actionsTriggered[self.config.moveLeft[1]] == true) {
+					gameObject.gameObject.move(new Vector2D(-1, 0));
 				}
-				if(self.keybinder.actionsTriggered[self.config.moveTop[0]] == true
-					||self.keybinder.actionsTriggered[self.config.moveTop[1]] == true){
-					self.spaceship.gameObject.move(new Vector2D(0, -1));
+				if (self.keybinder.actionsTriggered[self.config.moveTop[0]] == true
+					|| self.keybinder.actionsTriggered[self.config.moveTop[1]] == true) {
+					gameObject.gameObject.move(new Vector2D(0, -1));
 				}
-				if(self.keybinder.actionsTriggered[self.config.moveRight[0]] == true
-					||self.keybinder.actionsTriggered[self.config.moveRight[1]] == true){
-					self.spaceship.gameObject.move(new Vector2D(1,0));
+				if (self.keybinder.actionsTriggered[self.config.moveRight[0]] == true
+					|| self.keybinder.actionsTriggered[self.config.moveRight[1]] == true) {
+					gameObject.gameObject.move(new Vector2D(1, 0));
 				}
-				if(self.keybinder.actionsTriggered[self.config.moveBottom[0]] == true
-					||self.keybinder.actionsTriggered[self.config.moveBottom[1]] == true){
-					self.spaceship.gameObject.move(new Vector2D(0, 1));
+				if (self.keybinder.actionsTriggered[self.config.moveBottom[0]] == true
+					|| self.keybinder.actionsTriggered[self.config.moveBottom[1]] == true) {
+					gameObject.gameObject.move(new Vector2D(0, 1));
 				}
-			}else if(gameObject.gameObject.type == GameObject.Type.Projectile){
-				if(gameObject.gameObject.move(gameObject.direction) == false){
-					self.gameObjects.splice(self.gameObjects.indexOf(gameObject),1);
+			} else if (GameObject.Type.Projectile == gameObject.gameObject.getType()) {
+				if (gameObject.gameObject.move(gameObject.direction) == false) {
+					self.gameObjects.splice(self.gameObjects.indexOf(gameObject), 1);
 					console.log(self.gameObjects.length)
 				}
 			}
