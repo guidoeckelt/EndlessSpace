@@ -56,7 +56,7 @@ function EndlessSpace(){
 					gameObject.gameObject.move(new Vector2D(0, 1));
 				}
 			} else if (GameObject.Type.Projectile == gameObject.gameObject.getType()) {
-				if (gameObject.gameObject.move(gameObject.direction) == false) {
+				if (gameObject.gameObject.move(gameObject.getMovingDirection()) == false) {
 					self.gameObjects.splice(self.gameObjects.indexOf(gameObject), 1);
 					console.log(self.gameObjects.length)
 				}

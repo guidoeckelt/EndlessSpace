@@ -5,15 +5,12 @@ var SpaceShip = (function () {
         self.constructor.super.call(this,
             GameObject.Type.SpaceShip, position, 3, 2);
 		self.gameObject = new GameObject(GameObject.Type.SpaceShip,position, 3, 2);
-		self.alignment = new Vector2D(1,0);
-		self.movingDirection;
+		self.setAlignment(new Vector2D(1,0));
 
 		self.shoots = function () {
 			var X = self.gameObject.getPosition().X + self.getWidth();
 			var Y = self.gameObject.getPosition().Y + (self.getHeight()/2);
-			var projectile = new Projectile(new Vector2D(X, Y));
-			projectile.alignment = self.alignment;
-			projectile.direction = self.alignment;
+			var projectile = new Projectile(new Vector2D(X, Y), self.getAlignment());
 			game.addGameObject(projectile);
 		};
 	};

@@ -7,17 +7,27 @@ var GameObject = (function(){
 		var width = widthValue;
 		var height = heightValue;
 
+		var movingDirection;
+		var alignment;
+
 		self.getType = function(){ return type; };
 		self.setType = function (value) { type = value; };
 
 		self.getPosition = function(){ return position; };
-		self.setPosition = function (value) {position = value; };
+		self.setPosition = function (value) { position = value; };
 
 		self.getWidth = function(){ return width; };
-		self.setWidth = function (value) {width = value; };
+		self.setWidth = function (value) { width = value; };
 
 		self.getHeight = function(){ return height; };
-		self.setHeight = function (value) {height = value; };
+		self.setHeight = function (value) { height = value; };
+
+		self.getMovingDirection = function(){ return movingDirection; };
+		self.setMovingDirection = function (value)  { movingDirection = value; };
+
+		self.getAlignment = function(){ return alignment; };
+		self.setAlignment = function (value) { alignment = value; };
+
 	};
 
 	ctor.Type = { SpaceShip : "SpaceShip",Projectile:"Projectile"};
