@@ -4,6 +4,7 @@
 function KeyBinder(){
     var self = this;
     self.actionsTriggered = new Array();
+    self.keyBindings = new Array();
 
     self.registerKeyBinding = function(keyCombination, callback){
 
@@ -30,7 +31,7 @@ function KeyBinder(){
              case 119: game.actionsTriggered[key] = true; break;*/
             default: console.log("key:"+key);
         }
-        //event.preventDefault();
+        event.preventDefault();
 
     };
     self.OnKeyUp = function (event) {

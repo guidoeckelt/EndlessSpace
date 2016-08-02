@@ -1,28 +1,35 @@
-function GameObject(type, position, width, height){
-	var self = this;
-	self.type = type;
-	self.position = position;
-	self.width = width;
-	self.height = height;
+var GameObject = (function(){
 
-	self.move = function (movingDirection) {
-		var dummyGameObject = self.clone(movingDirection);
-		if(dummyGameObject.position.X < 1||dummyGameObject.position.X+dummyGameObject.width-1 > config.grid.width){
-			return false;
-		}
-		if(dummyGameObject.position.Y < 1||dummyGameObject.position.Y+dummyGameObject.height-1 > config.grid.height){
-			return false;
-		}
-		self.position = self.position.add(movingDirection);
-		return true;
+	var ctor = function (type, position, width, height) {
+		var self = this;
+		self.type = type;
+		self.position = position;
+		self.width = width;
+		self.height = height;
+
 	};
 
-	self.clone = function(movingDirection){
-		var newGameObject =new GameObject(self.type, self.position, self.width, self.height);
-		if(movingDirection){
-			newGameObject.position = newGameObject.position.add(movingDirection);
-		}
-		return newGameObject;
-	};
+	ctor.Type = { SpaceShip : "SpaceShip",Projectile:"Projectile"};
 
-}
+	ctor.prototype = {
+		move : function(movingDirection){
+			var dummyGameObject = this.clone(movingDirection);
+			if(dummyGameObject.position.X < 1||dummyGameObject.position.X+dummyGameObject.width-1 > config.grid.width){
+				return false;
+			}
+			if(dummyGameObject.position.Y < 1||dummyGameObject.position.Y+dummyGameObject.height-1 > config.grid.height){
+				return false;
+			}
+			this.position = this.position.add(movingDirection);
+			return true;
+		},
+		clone : function(movingDirection){
+			var newGameObject = new GameObject(this.type, this.position, this.width, this.height);
+			if(movingDirection){
+				newGameObject.position = newGameObject.position.add(movingDirection);
+			}
+			return newGameObject;
+		}
+	};
+	return ctor;
+})();

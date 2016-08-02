@@ -1,22 +1,22 @@
-function EndlessSpace(config){
+function EndlessSpace(){
 	var self = this;
-	self.config = config;
-	self.view = new View(config);
+	self.config = new Config();
+	self.view = new View(self.config);
 	self.keybinder = new KeyBinder();
 	var midY = this.config.grid.height/2;
-	self.spaceship= new SpaceShip(new Vector2D(1, midY),3 ,2);
-	self.gameObjects = new Array();
-	self.gameObjects.push(this.spaceship);
+	self.spaceship = new SpaceShip(new Vector2D(1, midY));
+	self.gameObjects = new Array(this.spaceship);
 
+	self.shouldInterupt = false;
+//===Game-Interface
 	self.start = function () {
-		window.setTimeout(function () { self.gameLoop(); },self.config.delay);
-		//window.requestAnimationFrame(function(){ self.gameLoop(); });
+		self.gameLoop();
 	};
 	self.stop = function () {
-
+		self.shouldInterupt = true;
 	};
 	self.pause = function () {
-
+		self.shouldInterupt = true;
 	};
 	self.restart = function () {
 
@@ -29,14 +29,16 @@ function EndlessSpace(config){
 		}
 
 		self.view.render(self.gameObjects);
-		window.setTimeout(function () { self.gameLoop(); },self.config.delay);
-		//window.requestAnimationFrame(function(){ self.gameLoop(); });
+		if(self.shouldInterupt==false){
+			window.setTimeout(function () { self.gameLoop(); },self.config.delay);
+			//window.requestAnimationFrame(function(){ self.gameLoop(); });
+		}
 	};
 
 	self.moveGameObjects = function () {
 		for(var i = 0;i < self.gameObjects.length;i++){
 			var gameObject = self.gameObjects[i];
-			if(gameObject.gameObject.type == "SpaceShip"){
+			if(gameObject.gameObject.type == GameObject.Type.SpaceShip){
 				if(self.keybinder.actionsTriggered[self.config.moveLeft[0]] == true
 					||self.keybinder.actionsTriggered[self.config.moveLeft[1]] == true){
 					self.spaceship.gameObject.move(new Vector2D(-1,0));
@@ -53,9 +55,10 @@ function EndlessSpace(config){
 					||self.keybinder.actionsTriggered[self.config.moveBottom[1]] == true){
 					self.spaceship.gameObject.move(new Vector2D(0, 1));
 				}
-			}else if(gameObject.gameObject.type == "Projectile"){
+			}else if(gameObject.gameObject.type == GameObject.Type.Projectile){
 				if(gameObject.gameObject.move(gameObject.direction) == false){
 					self.gameObjects.splice(self.gameObjects.indexOf(gameObject),1);
+					console.log(self.gameObjects.length)
 				}
 			}
 		}
@@ -81,15 +84,18 @@ function Config(){
 //============INIT============
 var game, config;
 $(function(){
-
-	config = new Config();
-	game = new EndlessSpace(config);
+	game = new EndlessSpace();
+	config = game.config;
 	game.view.loadDOM("scenePlaceholder");
 
-	document.addEventListener("keypress",game.keybinder.OnKeyPress);
-	document.addEventListener("keyup",game.keybinder.OnKeyUp);
+	// document.addEventListener("keypress",game.keybinder.OnKeyPress);
+	//document.addEventListener("keyup",game.keybinder.OnKeyUp);
+	$(window).keydown(game.keybinder.OnKeyPress);
+	$(window).keyup(game.keybinder.OnKeyUp);
 
 	game.start();
-
+	$(".pause").click(function (event) {
+		game.pause();
+	});
 });
 //============================
