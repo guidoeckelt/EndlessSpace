@@ -3,12 +3,16 @@
  */
 var KeyBinder = (function(){
 
+// private static var
+
     var ctor = function () {
-        var self = this;
+        var self = this; // prevents overlaping this-context
+
+// private var
         self.actionsTriggered = new Array();
-        self.keyBindings = new Array();
+        var keyBindings = new Array();
 
-
+// public instance only
         self.OnKeyPress = function (event) {
             var key = event.which;
             var keyCode = event.keyCode;
@@ -34,16 +38,29 @@ var KeyBinder = (function(){
             self.actionsTriggered[event.keyCode] = false;
             self.actionsTriggered[event.which] = false;
         };
+
+
+// Getters & Setters
+        self.getKeyBindings = function(){ return keyBindings; };
+        self.setKeyBindings = function (value)  { keyBindings = value; };
     };
 
-    ctor.prototype = {
-        add : function (keyCombination, callback) {
+// public static
 
+// public shared
+    ctor.prototype = {
+        add : function (keyBinding) {
+            this.getKeyBindings().add(keyBinding);
         },
-        remove : function (keyCombination, callback) {
+        remove : function (keyBinding) {
+            this.getKeyBindings().remove(keyBinding);
+        },
+        getByKeyCombination : function (keyCombination) {
 
         }
     };
 
+//  Inheritance
+//  inherit(ctor, SuperClass);
     return ctor;
 })();

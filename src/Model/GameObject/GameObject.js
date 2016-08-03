@@ -46,15 +46,15 @@ var GameObject = (function(){
 					movingDirection = new Vector2D(0,0);
 				}
 			}
-			var dummyGameObject = this.clone(movingDirection);
+            var moveOffset = movingDirection.multipleByScalar(this.getMovingSpeed());
+			var dummyGameObject = this.clone(moveOffset);
 			if(dummyGameObject.getPosition().X < 1||dummyGameObject.getPosition().X+dummyGameObject.getWidth() > config.grid.width){
 				return GameObject.State.OUTOFVISION;
 			}
 			if(dummyGameObject.getPosition().Y < 1||dummyGameObject.getPosition().Y+dummyGameObject.getHeight()-1 > config.grid.height){
 				return GameObject.State.OUTOFVISION;
 			}
-			var length = movingDirection.multipleByScalar(this.getMovingSpeed());
-			this.setPosition(this.getPosition().add(length));
+			this.setPosition(this.getPosition().add(moveOffset));
 			return GameObject.State.INVISION;
 		},
 		clone : function(movingDirection){
