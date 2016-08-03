@@ -29,34 +29,35 @@ function EndlessSpace(){
 		}
 
 		self.view.render(self.gameObjects);
-		if(self.shouldInterupt==false){
-			window.setTimeout(function () { self.gameLoop(); },self.config.delay);
-			//window.requestAnimationFrame(function(){ self.gameLoop(); });
+		if(self.shouldInterupt){
+		    return;
 		}
+        window.setTimeout(function () { self.gameLoop(); },self.config.delay);
+        //window.requestAnimationFrame(function(){ self.gameLoop(); });
 	};
 
 	self.moveGameObjects = function () {
 		for(var i = 0;i < self.gameObjects.length;i++){
 			var gameObject = self.gameObjects[i];
-			if (GameObject.Type.SpaceShip == gameObject.gameObject.getType()) {
+			if (GameObject.Type.SpaceShip == gameObject.getType()) {
 				if (self.keybinder.actionsTriggered[self.config.moveLeft[0]] == true
 					|| self.keybinder.actionsTriggered[self.config.moveLeft[1]] == true) {
-					gameObject.gameObject.move(new Vector2D(-1, 0));
+					gameObject.move(new Vector2D(-1, 0));
 				}
 				if (self.keybinder.actionsTriggered[self.config.moveTop[0]] == true
 					|| self.keybinder.actionsTriggered[self.config.moveTop[1]] == true) {
-					gameObject.gameObject.move(new Vector2D(0, -1));
+					gameObject.move(new Vector2D(0, -1));
 				}
 				if (self.keybinder.actionsTriggered[self.config.moveRight[0]] == true
 					|| self.keybinder.actionsTriggered[self.config.moveRight[1]] == true) {
-					gameObject.gameObject.move(new Vector2D(1, 0));
+					gameObject.move(new Vector2D(1, 0));
 				}
 				if (self.keybinder.actionsTriggered[self.config.moveBottom[0]] == true
 					|| self.keybinder.actionsTriggered[self.config.moveBottom[1]] == true) {
-					gameObject.gameObject.move(new Vector2D(0, 1));
+					gameObject.move(new Vector2D(0, 1));
 				}
-			} else if (GameObject.Type.Projectile == gameObject.gameObject.getType()) {
-				if (gameObject.gameObject.move(gameObject.getMovingDirection()) == false) {
+			} else if (GameObject.Type.Projectile == gameObject.getType()) {
+				if (gameObject.move() == false) {
 					self.gameObjects.splice(self.gameObjects.indexOf(gameObject), 1);
 					console.log(self.gameObjects.length)
 				}
@@ -70,7 +71,7 @@ function EndlessSpace(){
 
 }
 function Config(){
-	this.grid = {width:	100, height: 60}
+	this.grid = {width:	100, height: 60};
 	this.fieldSize = 10;
 	this.moveLeft 	= [37,  97];
 	this.moveRight 	= [39, 100];

@@ -37,26 +37,26 @@ function View(config){
 
 	};
 	self.drawObjects = function(gameObjects){
-		for(var object of gameObjects){
-			if (GameObject.Type.SpaceShip == object.gameObject.getType()) {
-				self.drawSpaceShip(object);
-			} else if (GameObject.Type.Projectile == object.gameObject.getType()) {
-				self.drawProjectile(object);
+		for(var gameObject of gameObjects){
+			if (GameObject.Type.SpaceShip == gameObject.getType()) {
+				self.drawSpaceShip(gameObject);
+			} else if (GameObject.Type.Projectile == gameObject.getType()) {
+				self.drawProjectile(gameObject);
 			}
 		}
 	};
 
 	self.drawSpaceShip = function(spaceShip){
-		var x = (spaceShip.gameObject.getPosition().X-1)*self.config.fieldSize;
-		var y = (spaceShip.gameObject.getPosition().Y-1)*self.config.fieldSize;
+		var x = (spaceShip.getPosition().X-1)*self.config.fieldSize;
+		var y = (spaceShip.getPosition().Y-1)*self.config.fieldSize;
 		var width = self.config.fieldSize*spaceShip.getWidth();
 		var height = self.config.fieldSize*spaceShip.getHeight();
 		self.context.fillStyle = "#ff0000";
 		self.context.fillRect(x, y, width, height);
 	};
 	self.drawProjectile = function(projectile){
-		var x = (projectile.gameObject.getPosition().X-1)*self.config.fieldSize;
-		var y = (projectile.gameObject.getPosition().Y-1)*self.config.fieldSize;
+		var x = (projectile.getPosition().X-1)*self.config.fieldSize;
+		var y = (projectile.getPosition().Y-1)*self.config.fieldSize;
 		var width = self.config.fieldSize*projectile.getWidth();
 		var height = self.config.fieldSize*projectile.getHeight();
 		self.context.fillStyle = "#0000ff";
