@@ -2,6 +2,7 @@ var KeyCombination = (function(){
 
 // private static var
 
+// Constructor
     var ctor = function (keyValue,specialKeys) {
         var self = this; // prevents overlaping this-context
 

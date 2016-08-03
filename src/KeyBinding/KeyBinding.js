@@ -2,6 +2,7 @@ var KeyBinding = (function () {
 
 // private static var
 
+// Constructor
     var ctor = function (keyCombinationValue, callbacksValue) {
         var self = this; // prevents overlaping this-context
 

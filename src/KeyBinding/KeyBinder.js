@@ -5,6 +5,7 @@ var KeyBinder = (function(){
 
 // private static var
 
+// Constructor
     var ctor = function () {
         var self = this; // prevents overlaping this-context
 
