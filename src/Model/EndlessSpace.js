@@ -1,6 +1,9 @@
+var game, config;
 function EndlessSpace(){
+    game = this;
 	var self = this;
 	self.config = new Config();
+    config = self.config;
 	self.view = new View(self.config);
 	self.keybinder = new KeyBinder();
 	var midY = this.config.grid.height/2;
@@ -9,7 +12,14 @@ function EndlessSpace(){
 
 	self.shouldInterupt = false;
 //===Game-Interface
-	self.start = function () {
+	self.start = function (placeholder) {
+	    self.view.loadDOM(placeholder);
+
+        // document.addEventListener("keypress",game.keybinder.OnKeyPress);
+        //document.addEventListener("keyup",game.keybinder.OnKeyUp);
+        $(window).keydown(self.keybinder.OnKeyPress);
+        $(window).keyup(self.keybinder.OnKeyUp);
+
 		self.gameLoop();
 	};
 	self.stop = function () {
@@ -82,21 +92,3 @@ function Config(){
 	this.delay = 10;
 	
 }
-//============INIT============
-var game, config;
-$(function(){
-	game = new EndlessSpace();
-	config = game.config;
-	game.view.loadDOM("scenePlaceholder");
-
-	// document.addEventListener("keypress",game.keybinder.OnKeyPress);
-	//document.addEventListener("keyup",game.keybinder.OnKeyUp);
-	$(window).keydown(game.keybinder.OnKeyPress);
-	$(window).keyup(game.keybinder.OnKeyUp);
-
-	game.start();
-	$(".pause").click(function (event) {
-		game.pause();
-	});
-});
-//============================

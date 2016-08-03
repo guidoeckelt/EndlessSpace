@@ -17,6 +17,12 @@ function View(config){
 		var parent = placeholderDOM.parentNode;
 		parent.removeChild(placeholderDOM);
 		parent.appendChild(canvas);
+
+
+        // document.addEventListener("keypress",game.keybinder.OnKeyPress);
+        //document.addEventListener("keyup",game.keybinder.OnKeyUp);
+        $(window).keydown(game.keybinder.OnKeyPress);
+        $(window).keyup(game.keybinder.OnKeyUp);
 	};
 
 	self.render = function(gameObjects){
