@@ -1,4 +1,4 @@
-var game, config;
+var game, config;//Static variables;
 function EndlessSpace(){
     game = this;
 	var self = this;
@@ -7,7 +7,7 @@ function EndlessSpace(){
 	self.view = new View(self.config);
 	self.keybinder = new KeyBinder();
 	var midY = this.config.grid.height/2;
-	self.spaceship = new SpaceShip(new Vector2D(1, midY));
+	self.spaceship = new SpaceShip(new Vector2D(1, midY),new Vector2D(1,0));
 	self.gameObjects = new Array(this.spaceship);
 
 	self.shouldInterupt = false;
@@ -17,8 +17,8 @@ function EndlessSpace(){
 
         // document.addEventListener("keypress",game.keybinder.OnKeyPress);
         //document.addEventListener("keyup",game.keybinder.OnKeyUp);
-        $(window).keydown(self.keybinder.OnKeyPress);
-        $(window).keyup(self.keybinder.OnKeyUp);
+        $("body").keydown(self.keybinder.OnKeyPress);
+        $("body").keyup(self.keybinder.OnKeyUp);
 
 		self.gameLoop();
 	};
@@ -67,7 +67,7 @@ function EndlessSpace(){
 					gameObject.move(new Vector2D(0, 1));
 				}
 			} else if (GameObject.Type.Projectile == gameObject.getType()) {
-				if (gameObject.move() == false) {
+				if (GameObject.State.OUTOFVISION == gameObject.move()) {
 					self.gameObjects.splice(self.gameObjects.indexOf(gameObject), 1);
 					console.log(self.gameObjects.length)
 				}

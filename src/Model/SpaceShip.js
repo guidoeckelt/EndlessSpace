@@ -1,10 +1,11 @@
 var SpaceShip = (function () {
 
-	var ctor = function(position){
+	var ctor = function(position, alignment){
 		var self = this;
         self.constructor.super.call(this,
             GameObject.Type.SpaceShip, position, 3, 2);
-		self.setAlignment(new Vector2D(1,0));
+		self.setAlignment(alignment);
+        self.setMovingSpeed(2);
 
 		self.shoots = function () {
 			var X = self.getPosition().X + self.getWidth();
@@ -13,7 +14,6 @@ var SpaceShip = (function () {
 			game.addGameObject(projectile);
 		};
 	};
-
 	inherit(ctor, GameObject);
 	return ctor;
 })();

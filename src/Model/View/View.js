@@ -4,6 +4,7 @@ function View(config){
 	self.canvas;
 	self.context;
 	self.background = true;
+	self.backgroundCounter = 0;
 
 	self.loadDOM = function (placeholder) {
 		var canvas = document.createElement("canvas");
@@ -31,16 +32,20 @@ function View(config){
 		self.drawObjects(gameObjects);
 	};
 	self.drawBackground = function () {
+		self.backgroundCounter++;
+		var offset = (self.config.fieldSize/self.backgroundCounter);
 		self.context.fillStyle = "#000000";
 		var size = 2;
 		for(var y = 0;y < self.config.grid.height;y++){
 			for(var x = 0;x < self.config.grid.width;x++){
-				var posX = x*self.config.fieldSize+(self.config.fieldSize/2);
+				var posX = x*self.config.fieldSize+offset;
 				var posY = y*self.config.fieldSize+(self.config.fieldSize/2);
 				self.context.fillRect(posX, posY, size, size);
 			}
 		}
-
+		if(self.backgroundCounter == 5){
+			self.backgroundCounter = 0;
+		}
 	};
 	self.drawObjects = function(gameObjects){
 		for(var gameObject of gameObjects){
