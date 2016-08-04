@@ -33,17 +33,17 @@ function View(config){
 	};
 	self.drawBackground = function () {
 		self.backgroundCounter++;
-		var offset = (self.config.fieldSize/self.backgroundCounter);
+		var offset = ((self.config.fieldSize)/self.backgroundCounter);
 		self.context.fillStyle = "#000000";
 		var size = 2;
-		for(var y = 0;y < self.config.grid.height;y++){
-			for(var x = 0;x < self.config.grid.width;x++){
+		for(var y = 0;y < self.config.grid.height+1;y++){
+			for(var x = 0;x < self.config.grid.width+1;x++){
 				var posX = x*self.config.fieldSize+offset;
 				var posY = y*self.config.fieldSize+(self.config.fieldSize/2);
 				self.context.fillRect(posX, posY, size, size);
 			}
 		}
-		if(self.backgroundCounter == 5){
+		if (8 == self.backgroundCounter) {
 			self.backgroundCounter = 0;
 		}
 	};

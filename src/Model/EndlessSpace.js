@@ -88,7 +88,7 @@ function Config(){
 	this.moveTop 	= [38, 119];
 	this.moveBottom = [40, 115];
 	this.shoot 		= 32;
-	this.rotateClockwise = 32;
+
 	this.delay = 10;
 	
 }
